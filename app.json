@@ -1,0 +1,12 @@
+{
+  "name": "CrisisPlusProject",
+  "displayName": "CrisisPlusProject",
+  "expo": {
+    "name": "CrisisPlusProject",
+    "slug": "CrisisPlusProject",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
