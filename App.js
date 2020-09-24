@@ -1,9 +1,12 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, SafeAreaView, TouchableOpacity, Image, ScrollView, Linking, Platform } from 'react-native';
+import { StyleSheet, Text, View, Button, PermissionsAndroid,SafeAreaView, TouchableOpacity, Image, ScrollView, Linking, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import MapView from 'react-native-maps';
+//navigator.geolocation = require('@react-native-community/geolocation');
+//import Geolocation from '@react-native-community/geolocation';
 
 const Stack = createStackNavigator();
 
@@ -139,46 +142,111 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-const triplezeroScreen = () => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <Separator />
-      <View>
-        <Text style={styles.individualtitlebar}>
-          Police, Fire or Medical Life Threatening Emergency
-        </Text>
-        <Image source={require("./assets/triple-zero.jpg")} style={styles.ImageIconStyle}/>
-        <TouchableOpacity
-          style={styles.buttonstyle}
-          activeOpacity={0.4}
-          onPress={()=> {
-            let phoneNumber = '';
-  
-            if (Platform.OS === 'android') {
-              phoneNumber = 'tel:000';
+class triplezeroScreen extends React.Component {
+      /* state = {
+          currentLongitude: 'unknown',//Initial Longitude
+          currentLatitude: 'unknown',//Initial Latitude
+      }
+      componentDidMount = () => {
+        var that =this;
+        //Checking for the permission just after component loaded
+        if(Platform.OS === 'ios'){
+          this.callLocation(that);
+        }else{
+          async function requestLocationPermission() {
+            try {
+              const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,{
+                  'title': 'Location Access Required',
+                  'message': 'This App needs to Access your location'
+                }
+              )
+              if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                //To Check, If Permission is granted
+                that.callLocation(that);
+              } else {
+                alert("Permission Denied");
+              }
+            } catch (err) {
+              alert("err",err);
+              console.warn(err)
             }
-            else {
-              phoneNumber = 'telprompt:${000}';
-            }
-        
-            Linking.openURL(phoneNumber);}} 
-        >
-          <Text style={styles.buttonTextStyle}>Call 000</Text>
-          <Image source={require("./assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
-        </TouchableOpacity>
-      </View>
-      <Separator />
-      <View style={styles.buttonsection}>
-        <TouchableOpacity 
-          style={styles.buttonstyle}
-          activeOpacity={0.4}
-        >
-          <Text style={styles.buttonTextStyle}>Geolocation Map</Text>
-        </TouchableOpacity>
-      </View>
-      <Separator />
-    </SafeAreaView>
-  );
+          }
+          requestLocationPermission();
+        }    
+      }
+      callLocation(that){
+        //alert("callLocation Called");
+          Geolocation.getCurrentPosition(
+            //Will give you the current location
+            (position) => {
+                const currentLongitude = JSON.stringify(position.coords.longitude);
+                //getting the Longitude from the location json
+                const currentLatitude = JSON.stringify(position.coords.latitude);
+                //getting the Latitude from the location json
+                that.setState({ currentLongitude:currentLongitude });
+                //Setting state Longitude to re re-render the Longitude Text
+                that.setState({ currentLatitude:currentLatitude });
+                //Setting state Latitude to re re-render the Longitude Text
+            },
+            (error) => alert(error.message),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+          );
+          that.watchID = Geolocation.watchPosition((position) => {
+            //Will give you the location on location change
+              console.log(position);
+              const currentLongitude = JSON.stringify(position.coords.longitude);
+              //getting the Longitude from the location json
+              const currentLatitude = JSON.stringify(position.coords.latitude);
+              //getting the Latitude from the location json
+            that.setState({ currentLongitude:currentLongitude });
+            //Setting state Longitude to re re-render the Longitude Text
+            that.setState({ currentLatitude:currentLatitude });
+            //Setting state Latitude to re re-render the Longitude Text
+          });
+      }
+      componentWillUnmount = () => {
+          Geolocation.clearWatch(this.watchID);
+      } */
+
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Separator />
+        <View>
+          <Text style={styles.individualtitlebar}>
+            Police, Fire or Medical Life Threatening Emergency
+          </Text>
+          <Image source={require("./assets/triple-zero.jpg")} style={styles.ImageIconStyle}/>
+          <TouchableOpacity
+            style={styles.buttonstyle}
+            activeOpacity={0.4}
+            onPress={()=> {
+              let phoneNumber = '';
+    
+              if (Platform.OS === 'android') {
+                phoneNumber = 'tel:000';
+              }
+              else {
+                phoneNumber = 'telprompt:${000}';
+              }
+          
+              Linking.openURL(phoneNumber);}} 
+          >
+            <Text style={styles.buttonTextStyle}>Call 000</Text>
+            <Image source={require("./assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
+          </TouchableOpacity>
+        </View>
+        <Separator />
+        <View style={styles.mapsection}>
+          <MapView style={styles.mapview}></MapView>
+          {/* <Text >Longitude: {this.state.currentLongitude}</Text>
+          <Text>Latitude: {this.state.currentLatitude}</Text> */}
+        </View>
+        <Separator />
+      </SafeAreaView>
+    );
+  }
 };
 
 const poisonScreen = () => {
@@ -215,7 +283,7 @@ const poisonScreen = () => {
           style={styles.buttonstyle}
           activeOpacity={0.4}
         >
-          <Text style={styles.buttonTextStyle}>Geolocation Map</Text>
+          <Text style={styles.buttonTextStyle}>Geolocation Map User Position Display - Sprint 2 In Progress Process</Text>
         </TouchableOpacity>
       </View>
       <Separator />
@@ -257,7 +325,7 @@ const unsuremedicalScreen = () => {
           style={styles.buttonstyle}
           activeOpacity={0.4}
         >
-          <Text style={styles.buttonTextStyle}>Geolocation Map</Text>
+          <Text style={styles.buttonTextStyle}>Geolocation Map User Position Display - Sprint 2 In Progress Process</Text>
         </TouchableOpacity>
       </View>
       <Separator />
@@ -299,7 +367,7 @@ const naturaldisasterScreen = () => {
           style={styles.buttonstyle}
           activeOpacity={0.4}
         >
-          <Text style={styles.buttonTextStyle}>Geolocation Map</Text>
+          <Text style={styles.buttonTextStyle}>Geolocation Map User Position Display - Sprint 2 In Progress Process</Text>
         </TouchableOpacity>
       </View>
       <Separator />
@@ -341,7 +409,7 @@ const crimereportingScreen = () => {
           style={styles.buttonstyle}
           activeOpacity={0.4}
         >
-          <Text style={styles.buttonTextStyle}>Geolocation Map</Text>
+          <Text style={styles.buttonTextStyle}>Geolocation Map User Position Display - Sprint 2 In Progress Process</Text>
         </TouchableOpacity>
       </View>
       <Separator />
@@ -383,7 +451,7 @@ const mentalhealthScreen = () => {
           style={styles.buttonstyle}
           activeOpacity={0.4}
         >
-          <Text style={styles.buttonTextStyle}>Geolocation Map</Text>
+          <Text style={styles.buttonTextStyle}>Geolocation Map User Position Display - Sprint 2 In Progress Process</Text>
         </TouchableOpacity>
       </View>
       <Separator />
@@ -443,6 +511,17 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 5 },
     shadowRadius: 10,
     shadowOpacity: 0.4,
+  },
+  mapsection: {
+    marginTop: 10,
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 0,
+    marginBottom: 5,
+  },
+  mapview: {
+    width: 350,
+    height: 200
   },
   buttonImageIconStyle: {
     padding: 5,
