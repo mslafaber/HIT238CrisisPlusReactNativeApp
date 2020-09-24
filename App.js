@@ -155,7 +155,7 @@ const triplezeroScreen = () => {
             let phoneNumber = '';
   
             if (Platform.OS === 'android') {
-              phoneNumber = 'tel:${000}';
+              phoneNumber = 'tel:000';
             }
             else {
               phoneNumber = 'telprompt:${000}';
@@ -197,7 +197,7 @@ const poisonScreen = () => {
             let phoneNumber = '';
   
             if (Platform.OS === 'android') {
-              phoneNumber = 'tel:${131126}';
+              phoneNumber = 'tel:131126';
             }
             else {
               phoneNumber = 'telprompt:${131126}';
@@ -239,7 +239,7 @@ const unsuremedicalScreen = () => {
             let phoneNumber = '';
   
             if (Platform.OS === 'android') {
-              phoneNumber = 'tel:${1800022222}';
+              phoneNumber = 'tel:1800022222';
             }
             else {
               phoneNumber = 'telprompt:${1800022222}';
@@ -281,7 +281,7 @@ const naturaldisasterScreen = () => {
             let phoneNumber = '';
   
             if (Platform.OS === 'android') {
-              phoneNumber = 'tel:${1802266}';
+              phoneNumber = 'tel:1802266';
             }
             else {
               phoneNumber = 'telprompt:${1802266}';
@@ -323,7 +323,7 @@ const crimereportingScreen = () => {
             let phoneNumber = '';
   
             if (Platform.OS === 'android') {
-              phoneNumber = 'tel:${1800333000}';
+              phoneNumber = 'tel:1800333000';
             }
             else {
               phoneNumber = 'telprompt:${1800333000}';
@@ -365,7 +365,7 @@ const mentalhealthScreen = () => {
             let phoneNumber = '';
   
             if (Platform.OS === 'android') {
-              phoneNumber = 'tel:${131114}';
+              phoneNumber = 'tel:131114';
             }
             else {
               phoneNumber = 'telprompt:${131114}';
