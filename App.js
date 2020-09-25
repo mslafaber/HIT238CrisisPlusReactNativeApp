@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MapView from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
+import { GeoMap } from './geolocation_map';
 
 const Stack = createStackNavigator();
 
@@ -142,37 +143,6 @@ const HomeScreen = ({ navigation }) => {
 };
 
 class triplezeroScreen extends React.Component {
-  state = {
-    mapRegion: { latitude: 37.78825, longitude: -122.4324, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
-    hasLocationPermissions: false,
-    locationResult: null,
-    location: {coords: { latitude: 37.78825, longitude: -122.4324}}
-  };
-
-  componentDidMount() {
-    this._getLocationAsync();
-  }
-
-  _handleMapRegionChange = mapRegion => {
-    this.setState({ mapRegion });
-  };
-
-  _getLocationAsync = async () => {
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      this.setState({
-        locationResult: 'Permission to access location was denied',
-        location,
-      });
-    } else {
-      this.setState({ hasLocationPermissions: true });
-    } 
-
-    let location = await Location.getCurrentPositionAsync({});
-    this.setState({ locationResult: JSON.stringify(location), location });
-    
-  };
-
   render() {
     return (
       <ScrollView style={styles.container}>
@@ -201,21 +171,7 @@ class triplezeroScreen extends React.Component {
           </TouchableOpacity>
         </View>
         <Separator />
-        <View style={styles.mapsection}>
-        <Text style={styles.mappin}>Touch the Red Pin on the map to View the Address</Text>
-          <MapView
-            style={styles.mapview}
-            region={{ latitude: this.state.location.coords.latitude, longitude: this.state.location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
-            onRegionChange={this._handleMapRegionChange}
-          >
-          <MapView.Marker
-            style={styles.mapviewmarker}
-            coordinate={this.state.location.coords}
-            title="My Location"
-            description={this.state.locationResult}
-          />
-          </MapView>
-        </View>
+        <GeoMap />
         <Separator />
       </ScrollView>
     );
@@ -224,15 +180,14 @@ class triplezeroScreen extends React.Component {
 
 const poisonScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       <Separator />
       <View>
         <Text style={styles.individualtitlebar}>
           Poisons Emergency
         </Text>
-        <Image source={require("./assets/poison.png")} style={styles.ImageIconStyle}/>
         <TouchableOpacity
-          style={styles.buttonstyle}
+          style={styles.callbuttonstyle}
           activeOpacity={0.4}
           onPress={()=> {
             let phoneNumber = '';
@@ -251,30 +206,22 @@ const poisonScreen = () => {
         </TouchableOpacity>
       </View>
       <Separator />
-      <View style={styles.buttonsection}>
-        <TouchableOpacity 
-          style={styles.buttonstyle}
-          activeOpacity={0.4}
-        >
-          <Text style={styles.buttonTextStyle}>Geolocation Map User Position Display - Sprint 2 In Progress Process</Text>
-        </TouchableOpacity>
-      </View>
+      <GeoMap />
       <Separator />
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
 const unsuremedicalScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       <Separator />
       <View>
         <Text style={styles.individualtitlebar}>
           Medical assistance from a Registeres Nurse
         </Text>
-        <Image source={require("./assets/health-direct.jpg")} style={styles.ImageIconStyle}/>
         <TouchableOpacity
-          style={styles.buttonstyle}
+          style={styles.callbuttonstyle}
           activeOpacity={0.4}
           onPress={()=> {
             let phoneNumber = '';
@@ -293,30 +240,22 @@ const unsuremedicalScreen = () => {
         </TouchableOpacity>
       </View>
       <Separator />
-      <View style={styles.buttonsection}>
-        <TouchableOpacity 
-          style={styles.buttonstyle}
-          activeOpacity={0.4}
-        >
-          <Text style={styles.buttonTextStyle}>Geolocation Map User Position Display - Sprint 2 In Progress Process</Text>
-        </TouchableOpacity>
-      </View>
+      <GeoMap />
       <Separator />
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
 const naturaldisasterScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       <Separator />
       <View>
         <Text style={styles.individualtitlebar}>
           Natural Disaster Emergency Contact
         </Text>
-        <Image source={require("./assets/floods.jpg")} style={styles.ImageIconStyle}/>
         <TouchableOpacity
-          style={styles.buttonstyle}
+          style={styles.callbuttonstyle}
           activeOpacity={0.4}
           onPress={()=> {
             let phoneNumber = '';
@@ -330,35 +269,27 @@ const naturaldisasterScreen = () => {
         
             Linking.openURL(phoneNumber);}} 
         >
-          <Text style={styles.buttonTextStyle}>Call 24/7 Natural Disaster Assistance Contact</Text>
+          <Text style={styles.buttonTextStyle}>Call 24/7 Disaster Assistance Contact</Text>
           <Image source={require("./assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
         </TouchableOpacity>
       </View>
       <Separator />
-      <View style={styles.buttonsection}>
-        <TouchableOpacity 
-          style={styles.buttonstyle}
-          activeOpacity={0.4}
-        >
-          <Text style={styles.buttonTextStyle}>Geolocation Map User Position Display - Sprint 2 In Progress Process</Text>
-        </TouchableOpacity>
-      </View>
+      <GeoMap />
       <Separator />
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
 const crimereportingScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       <Separator />
       <View>
         <Text style={styles.individualtitlebar}>
           Crime Reporting Emergency Contact
         </Text>
-        <Image source={require("./assets/crime-report.png")} style={styles.ImageIconStyle}/>
         <TouchableOpacity
-          style={styles.buttonstyle}
+          style={styles.callbuttonstyle}
           activeOpacity={0.4}
           onPress={()=> {
             let phoneNumber = '';
@@ -377,30 +308,22 @@ const crimereportingScreen = () => {
         </TouchableOpacity>
       </View>
       <Separator />
-      <View style={styles.buttonsection}>
-        <TouchableOpacity 
-          style={styles.buttonstyle}
-          activeOpacity={0.4}
-        >
-          <Text style={styles.buttonTextStyle}>Geolocation Map User Position Display - Sprint 2 In Progress Process</Text>
-        </TouchableOpacity>
-      </View>
+      <GeoMap />
       <Separator />
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
 const mentalhealthScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       <Separator />
       <View>
         <Text style={styles.individualtitlebar}>
           Mental Health Emergency Contact
         </Text>
-        <Image source={require("./assets/mental-health.png")} style={styles.ImageIconStyle}/>
         <TouchableOpacity
-          style={styles.buttonstyle}
+          style={styles.callbuttonstyle}
           activeOpacity={0.4}
           onPress={()=> {
             let phoneNumber = '';
@@ -419,16 +342,9 @@ const mentalhealthScreen = () => {
         </TouchableOpacity>
       </View>
       <Separator />
-      <View style={styles.buttonsection}>
-        <TouchableOpacity 
-          style={styles.buttonstyle}
-          activeOpacity={0.4}
-        >
-          <Text style={styles.buttonTextStyle}>Geolocation Map User Position Display - Sprint 2 In Progress Process</Text>
-        </TouchableOpacity>
-      </View>
+      <GeoMap />
       <Separator />
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -496,23 +412,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     shadowOpacity: 0.4,
     height: 150,
-  },
-  mapsection: {
-    marginTop: 10,
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: 0,
-    marginBottom: 5,
-    height: 460
-  },
-  mapview: {
-    alignSelf: 'stretch',
-    height: 420
-  },
-  mappin: {
-    color: "#DC143C",
-    fontSize: 16,
-    textAlign: 'center'
   },
   buttonImageIconStyle: {
     padding: 5,
