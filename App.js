@@ -1,12 +1,11 @@
 import 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, PermissionsAndroid,SafeAreaView, TouchableOpacity, Image, ScrollView, Linking, Platform } from 'react-native';
+import { StyleSheet, Text, View, Button,SafeAreaView, TouchableOpacity, Image, ScrollView, Linking, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MapView from 'react-native-maps';
-//navigator.geolocation = require('@react-native-community/geolocation');
-//import Geolocation from '@react-native-community/geolocation';
+import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location';
 
 const Stack = createStackNavigator();
 
@@ -143,83 +142,47 @@ const HomeScreen = ({ navigation }) => {
 };
 
 class triplezeroScreen extends React.Component {
-      /* state = {
-          currentLongitude: 'unknown',//Initial Longitude
-          currentLatitude: 'unknown',//Initial Latitude
-      }
-      componentDidMount = () => {
-        var that =this;
-        //Checking for the permission just after component loaded
-        if(Platform.OS === 'ios'){
-          this.callLocation(that);
-        }else{
-          async function requestLocationPermission() {
-            try {
-              const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,{
-                  'title': 'Location Access Required',
-                  'message': 'This App needs to Access your location'
-                }
-              )
-              if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                //To Check, If Permission is granted
-                that.callLocation(that);
-              } else {
-                alert("Permission Denied");
-              }
-            } catch (err) {
-              alert("err",err);
-              console.warn(err)
-            }
-          }
-          requestLocationPermission();
-        }    
-      }
-      callLocation(that){
-        //alert("callLocation Called");
-          Geolocation.getCurrentPosition(
-            //Will give you the current location
-            (position) => {
-                const currentLongitude = JSON.stringify(position.coords.longitude);
-                //getting the Longitude from the location json
-                const currentLatitude = JSON.stringify(position.coords.latitude);
-                //getting the Latitude from the location json
-                that.setState({ currentLongitude:currentLongitude });
-                //Setting state Longitude to re re-render the Longitude Text
-                that.setState({ currentLatitude:currentLatitude });
-                //Setting state Latitude to re re-render the Longitude Text
-            },
-            (error) => alert(error.message),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-          );
-          that.watchID = Geolocation.watchPosition((position) => {
-            //Will give you the location on location change
-              console.log(position);
-              const currentLongitude = JSON.stringify(position.coords.longitude);
-              //getting the Longitude from the location json
-              const currentLatitude = JSON.stringify(position.coords.latitude);
-              //getting the Latitude from the location json
-            that.setState({ currentLongitude:currentLongitude });
-            //Setting state Longitude to re re-render the Longitude Text
-            that.setState({ currentLatitude:currentLatitude });
-            //Setting state Latitude to re re-render the Longitude Text
-          });
-      }
-      componentWillUnmount = () => {
-          Geolocation.clearWatch(this.watchID);
-      } */
+  state = {
+    mapRegion: { latitude: 37.78825, longitude: -122.4324, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
+    hasLocationPermissions: false,
+    locationResult: null,
+    location: {coords: { latitude: 37.78825, longitude: -122.4324}}
+  };
+
+  componentDidMount() {
+    this._getLocationAsync();
+  }
+
+  _handleMapRegionChange = mapRegion => {
+    this.setState({ mapRegion });
+  };
+
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        locationResult: 'Permission to access location was denied',
+        location,
+      });
+    } else {
+      this.setState({ hasLocationPermissions: true });
+    } 
+
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ locationResult: JSON.stringify(location), location });
+    
+  };
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.container}>
         <Separator />
         <View>
           <Text style={styles.individualtitlebar}>
             Police, Fire or Medical Life Threatening Emergency
           </Text>
-          <Image source={require("./assets/triple-zero.jpg")} style={styles.ImageIconStyle}/>
           <TouchableOpacity
-            style={styles.buttonstyle}
+            style={styles.callbuttonstyle}
             activeOpacity={0.4}
             onPress={()=> {
               let phoneNumber = '';
@@ -239,12 +202,22 @@ class triplezeroScreen extends React.Component {
         </View>
         <Separator />
         <View style={styles.mapsection}>
-          <MapView style={styles.mapview}></MapView>
-          {/* <Text >Longitude: {this.state.currentLongitude}</Text>
-          <Text>Latitude: {this.state.currentLatitude}</Text> */}
+        <Text style={styles.mappin}>Touch the Red Pin on the map to View the Address</Text>
+          <MapView
+            style={styles.mapview}
+            region={{ latitude: this.state.location.coords.latitude, longitude: this.state.location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
+            onRegionChange={this._handleMapRegionChange}
+          >
+          <MapView.Marker
+            style={styles.mapviewmarker}
+            coordinate={this.state.location.coords}
+            title="My Location"
+            description={this.state.locationResult}
+          />
+          </MapView>
         </View>
         <Separator />
-      </SafeAreaView>
+      </ScrollView>
     );
   }
 };
@@ -498,11 +471,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   buttonsection: {
-    marginTop: 10,
+    marginTop: 1,
   },
   buttonstyle: {
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: '#F5FFFA',
     borderRadius: 15,
     padding: 0,
@@ -512,16 +485,34 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     shadowOpacity: 0.4,
   },
+  callbuttonstyle: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#F5FFFA',
+    padding: 0,
+    marginBottom: 5,
+    shadowColor: '#303838',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 3,
+    shadowOpacity: 0.4,
+    height: 150,
+  },
   mapsection: {
     marginTop: 10,
     flexDirection: 'column',
     alignItems: 'center',
     padding: 0,
     marginBottom: 5,
+    height: 460
   },
   mapview: {
-    width: 350,
-    height: 200
+    alignSelf: 'stretch',
+    height: 420
+  },
+  mappin: {
+    color: "#DC143C",
+    fontSize: 16,
+    textAlign: 'center'
   },
   buttonImageIconStyle: {
     padding: 5,
@@ -535,12 +526,12 @@ const styles = StyleSheet.create({
   },
   callbuttonImageIconStyle: {
     padding: 5,
-    marginTop: 10,
+    marginTop: 1,
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 20,
-    height: 150,
-    width: 200,
+    height: 100,
+    width: 100,
     resizeMode: 'stretch',
   },
   buttonTextStyle: {
