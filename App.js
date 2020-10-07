@@ -1,12 +1,14 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { StyleSheet, Text, View, Button,SafeAreaView, TouchableOpacity, Image, ScrollView, Linking, Platform } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, Text, View, Button,SafeAreaView, TouchableOpacity, Image, ScrollView, Linking, Platform, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MapView from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import { GeoMap } from './geolocation_map';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 
@@ -31,25 +33,66 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: 'CrisisPlus' }}
-        />
-        <Stack.Screen name="Life Threatening Emergency" component={triplezeroScreen} options={{ title: 'CrisisPlus' }}/>
+          options={{ title: 'CrisisPlus' }}/>
+        
+        {/* <Stack.Screen name="Life Threatening Emergency" component={triplezeroScreen} options={{ title: 'CrisisPlus' }}/>
         <Stack.Screen name="Poison Emergency" component={poisonScreen} options={{ title: 'CrisisPlus' }}/>
         <Stack.Screen name="Unsure Medical Emergency" component={unsuremedicalScreen} options={{ title: 'CrisisPlus' }}/>
         <Stack.Screen name="Natural Disaster Emergency" component={naturaldisasterScreen} options={{ title: 'CrisisPlus' }}/>
         <Stack.Screen name="Crime Reporting Emergency" component={crimereportingScreen} options={{ title: 'CrisisPlus' }}/>
-        <Stack.Screen name="Mental Health Emergency" component={mentalhealthScreen} options={{ title: 'CrisisPlus' }}/>
+        <Stack.Screen name="Mental Health Emergency" component={mentalhealthScreen} options={{ title: 'CrisisPlus' }}/> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 export default App;
-
+/*
 const Separator = () => (
   <View style={styles.separator} />
-);
+);*/
 
+const HomeScreen = ({ navigation }) => {
+ /*
+  construstor(props) {
+    super(props);
+    this.state = {
+      searchKey: '',
+    }
+  }*/
+  const [emergs, setemergs] = useState([
+    { title: 'Life Threatening Emergency Contact', id: '1', description: 'Contact when a person is seriously injured and need Police, Fire or Medical emergency service or when a property is threatened', image: require("./assets/triple-zero.jpg"), screendetailTitle: 'Police, Fire or Medical Life Threatening Emergency', callTitle: 'Call 000', androidnum: 'tel:131126', iOSnum: 'telprompt:${131126}' },
+    { title: 'Poison Emergency Contact', id: '2', description: 'Contact when a person has taken an overdose, made an error with medicine or been poisoned', screendetailTitle: 'Poisons Emergency', image: require("./assets/poison.png"), callTitle: 'Call 24/7 Poisons Contact', androidnum: 'tel:131126', iOSnum: 'telprompt:${131126}' },
+    /*{ title: 'title 3', id: '3', description: 'description 3', screendetailTitle: 'Poisons Emergency', androidnum: 'tel:131126', iOSnum: 'telprompt:${131126}' },
+    { title: 'title 4', id: '4', description: 'description 4', screendetailTitle: 'Police, Fire or Medical Life Threatening Emergency', androidnum: 'tel:131126', iOSnum: 'telprompt:${131126}' },
+  */]);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.buttonsection}>
+      {/* <View>
+        <TextInput placeholder="Please enter a key word"></TextInput>
+      </View> */}
+      <FlatList 
+        keyExtractor={(item) => item.id}
+        data={emergs}
+        renderItem={({ item }) => (
+          <TouchableOpacity 
+          style={styles.buttonstyle}
+          activeOpacity={0.4}
+          onPress={() => navigation.navigate('EmergencyDetails', item)}
+        >
+          <Text style={styles.buttonTextStyle}>{item.title}</Text>
+          <Text style={styles.buttonsubTextStyle}>{item.description}</Text>
+          <Image source={item.image} style={styles.buttonImageIconStyle}/>
+        </TouchableOpacity>
+        )}
+      />
+      </View>
+    </View>
+  )
+};
+/*
 const HomeScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
@@ -140,8 +183,9 @@ const HomeScreen = ({ navigation }) => {
       <Separator />
     </ScrollView>
   );
-};
+};*/
 
+/*
 class triplezeroScreen extends React.Component {
   render() {
     return (
@@ -346,7 +390,7 @@ const mentalhealthScreen = () => {
       <Separator />
     </ScrollView>
   );
-};
+};*/
 
 const styles = StyleSheet.create({
   container: {
