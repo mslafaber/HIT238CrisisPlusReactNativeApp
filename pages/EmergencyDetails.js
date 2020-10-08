@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, Linking, Platform } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Linking, Platform, TouchableOpacity } from 'react-native';
 import { GeoMap } from './geolocation_map';
 
 const Separator = () => (
@@ -9,43 +9,102 @@ const Separator = () => (
 
 export default class EmergencyDetailsScreen extends React.Component {
 
-  /* constructor(props){
-    super(props)
-    this.state = {
-      emergsArray: this.props.navigation.state.params.emergsArray,
-    };
-  } */
+  constructor(props){
+    super(props);
+  }
+  
   render(){
+    /* const { navigate } = this.props.navigation; */
+    const item = this.props.route.params.item
     return (
       <ScrollView style={styles.container}>
         <Separator />
           <View>
           <Text style={styles.individualtitlebar}>
-            Second screen title passed from home screen goes here - Under Development
-            {/* should display the second screen title{emergsArray.secondscreentitle} */}
+            {item.screendetailTitle}
           </Text>
-          <Text style={styles.individualtitlebar}>
-            Call data passed from homescreen goes here(A button with a call icon, and correct emergency contact number) - Under Development
-            {/* should display the second screen title{emergsArray.secondscreentitle} */}
-          </Text>
-          {/* { <TouchableOpacity
+          <TouchableOpacity 
             style={styles.callbuttonstyle}
             activeOpacity={0.4}
             onPress={()=> {
-              let phoneNumber = '';
+
+              if (this.props.route.params.index === 0) {
+                let phoneNumber = '';
     
-              if (Platform.OS === 'android') {
-                phoneNumber = androidnum;
-              }
-              else {
-                phoneNumber = iOSnum;
-              }
+                if (Platform.OS === 'android') {
+                  phoneNumber = 'tel:{000}';
+                }
+                else {
+                  phoneNumber = 'telprompt:${000}';
+                }
           
-              Linking.openURL(phoneNumber);}} 
+                Linking.openURL(phoneNumber);
+              }
+              else if (this.props.route.params.index === 1) {
+                let phoneNumber = '';
+    
+                if (Platform.OS === 'android') {
+                  phoneNumber = 'tel:{131126}';
+                }
+                else {
+                  phoneNumber = 'telprompt:${131126}';
+                }
+          
+                Linking.openURL(phoneNumber);
+              }
+              else if (this.props.route.params.index === 2) {
+                let phoneNumber = '';
+    
+                if (Platform.OS === 'android') {
+                  phoneNumber = 'tel:{1800022222}';
+                }
+                else {
+                  phoneNumber = 'telprompt:${1800022222}';
+                }
+          
+                Linking.openURL(phoneNumber);
+              }
+              else if (this.props.route.params.index === 3) {
+                let phoneNumber = '';
+    
+                if (Platform.OS === 'android') {
+                  phoneNumber = 'tel:{1802266}';
+                }
+                else {
+                  phoneNumber = 'telprompt:${1802266}';
+                }
+          
+                Linking.openURL(phoneNumber);
+              }
+              else if (this.props.route.params.index === 4) {
+                let phoneNumber = '';
+    
+                if (Platform.OS === 'android') {
+                  phoneNumber = 'tel:{1800333000}';
+                }
+                else {
+                  phoneNumber = 'telprompt:${1800333000}';
+                }
+          
+                Linking.openURL(phoneNumber);
+              }
+              else if (this.props.route.params.index === 5) {
+                let phoneNumber = '';
+    
+                if (Platform.OS === 'android') {
+                  phoneNumber = 'tel:{131114}';
+                }
+                else {
+                  phoneNumber = 'telprompt:${131114}';
+                }
+          
+                Linking.openURL(phoneNumber);
+              }
+            }}
           >
-            <Text style={styles.buttonTextStyle}>{navigation.getParam('callTitle')}</Text>
+            <Text style={styles.buttonTextStyle}>{item.callTitle}</Text>
             <Image source={require("../assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
-          </TouchableOpacity>} */}
+          </TouchableOpacity>
         </View>
         <Separator />
         <GeoMap />
