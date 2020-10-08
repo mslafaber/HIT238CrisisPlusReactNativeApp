@@ -1,11 +1,14 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { useState } from 'react';
+import { GeoMap } from './pages/geolocation_map';
 import { StyleSheet, Text, View, Button,SafeAreaView, TouchableOpacity, TextInput, Image, ScrollView, Linking, Platform, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createAppContainer } from 'react-navigation';
-import { EmergencyDetails } from './pages/EmergencyDetails';
+import { withNavigation } from 'react-navigation';
+import EmergencyDetailsScreen from './pages/EmergencyDetails';
+import HomeScreen from "./pages/HomeScreen";
 
 const Stack = createStackNavigator();
 
@@ -34,7 +37,7 @@ const App = () => {
 
         <Stack.Screen
           name="EmergencyDetails"
-          component={EmergencyDetails}
+          component={EmergencyDetailsScreen}
           options={{ title: 'Contact' }}/>
         
         {/* <Stack.Screen name="Life Threatening Emergency" component={triplezeroScreen} options={{ title: 'CrisisPlus' }}/>
@@ -54,7 +57,7 @@ const Separator = () => (
   <View style={styles.separator} />
 );*/
 
-const emergsArray = [
+/* const emergsArray = [
   { title: 'Life Threatening Emergency Contact', id: '1', description: 'Contact when a person is seriously injured and need Police, Fire or Medical emergency service or when a property is threatened', image: require("./assets/triple-zero.jpg"), screendetailTitle: 'Police, Fire or Medical Life Threatening Emergency', callTitle: 'Call 000', androidnum: 'tel:131126', iOSnum: 'telprompt:${131126}' },
   { title: 'Poison Emergency Contact', id: '2', description: 'Contact when a person has taken an overdose, made an error with medicine or been poisoned', screendetailTitle: 'Poisons Emergency', image: require("./assets/poison.png"), callTitle: 'Call 24/7 Poisons Contact', androidnum: 'tel:131126', iOSnum: 'telprompt:${131126}' },
   { title: 'Unsure Medical Emergency or Medical Assistance Contact', id: '3', description: 'Contact to speak to a registered nurse about a medical concern but not an emergency for an ambulance', screendetailTitle: 'Medical assistance from a Registeres Nurse', image: require("./assets/health-direct.jpg"), callTitle: 'Call 24/7 Medical Assistance Contact', androidnum: 'tel:1800022222', iOSnum: 'telprompt:${1800022222}' },
@@ -89,9 +92,9 @@ class HomeScreen extends React.Component {
     let newData = this.arrayNew.filter(item => {
       const itemData = `${item.title.toUpperCase()}`;
       const textData = text.toUpperCase();
-    if(text.length >0 ){
-      return itemData.indexOf(textData) > -1;
-    }
+      if(text.length >0 ){
+        return itemData.indexOf(textData) > -1;
+      }
     });
     this.setState({
       data: newData,
@@ -109,8 +112,8 @@ class HomeScreen extends React.Component {
     );
   };
 
-  _onPressItem = (item) => { 
-     this.props.navigation.navigate('EmergencyDetails', item)
+  _onPressItem = () => { 
+     navigation.push('EmergencyDetails', emergsArray)
   };
 
   render() {
@@ -123,7 +126,7 @@ class HomeScreen extends React.Component {
             <TouchableOpacity 
             style={styles.buttonstyle}
             activeOpacity={0.4}
-            onPress={() => this._onPressItem(item)}
+            onPress={() => navigation.push('EmergencyDetails', emergsArray)}
           >
             <Text style={styles.buttonTextStyle}>{item.title}</Text>
             <Text style={styles.buttonsubTextStyle}>{item.description}</Text>
@@ -139,6 +142,43 @@ class HomeScreen extends React.Component {
     );
   }
 }
+
+function EmergencyDetailsScreen({route}) 
+{
+  console.warn(route)
+    return (
+      <ScrollView style={styles.container}>
+        <Separator />
+        <View>
+          <Text style={styles.individualtitlebar}>
+            Details Screen
+          </Text>
+          { <TouchableOpacity
+            style={styles.callbuttonstyle}
+            activeOpacity={0.4}
+            onPress={()=> {
+              let phoneNumber = '';
+    
+              if (Platform.OS === 'android') {
+                phoneNumber = androidnum;
+              }
+              else {
+                phoneNumber = iOSnum;
+              }
+          
+              Linking.openURL(phoneNumber);}} 
+          >
+            <Text style={styles.buttonTextStyle}>{navigation.getParam('callTitle')}</Text>
+            <Image source={require("../assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
+          </TouchableOpacity>}
+        </View>
+        <Separator />
+        <GeoMap />
+        <Separator />
+      </ScrollView>
+    );
+} */
+
 /*
 const HomeScreen = ({ navigation }) => {
   return (

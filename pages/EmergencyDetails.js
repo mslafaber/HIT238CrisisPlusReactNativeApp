@@ -2,22 +2,59 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Linking, Platform } from 'react-native';
 import { GeoMap } from './geolocation_map';
-import { useNavigation } from '@react-navigation/native';
 
 const Separator = () => (
   <View style={styles.separator} />
 );
+export default EmergencyDetailsScreen;
+function EmergencyDetailsScreen({route}) 
+{
+  console.warn(route)
+    return (
+      <ScrollView style={styles.container}>
+        <Separator />
+        <View>
+          <Text style={styles.individualtitlebar}>
+            Details Screen
+          </Text>
+          { <TouchableOpacity
+            style={styles.callbuttonstyle}
+            activeOpacity={0.4}
+            onPress={()=> {
+              let phoneNumber = '';
+    
+              if (Platform.OS === 'android') {
+                phoneNumber = androidnum;
+              }
+              else {
+                phoneNumber = iOSnum;
+              }
+          
+              Linking.openURL(phoneNumber);}} 
+          >
+            <Text style={styles.buttonTextStyle}>{navigation.getParam('callTitle')}</Text>
+            <Image source={require("../assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
+          </TouchableOpacity>}
+        </View>
+        <Separator />
+        <GeoMap />
+        <Separator />
+      </ScrollView>
+    );
+}/*  
 
 export class EmergencyDetails extends React.Component {
     render() {
+      const { params } = this.props.navigation.state;
+      const { title } = params ? params: null;
       return (
         <ScrollView style={styles.container}>
           <Separator />
           <View>
             <Text style={styles.individualtitlebar}>
-              {navigation.getParam('screendetailTitle')}
+              {title}
             </Text>
-            <TouchableOpacity
+            { <TouchableOpacity
               style={styles.callbuttonstyle}
               activeOpacity={0.4}
               onPress={()=> {
@@ -34,7 +71,7 @@ export class EmergencyDetails extends React.Component {
             >
               <Text style={styles.buttonTextStyle}>{navigation.getParam('callTitle')}</Text>
               <Image source={require("../assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
-            </TouchableOpacity>
+            </TouchableOpacity> }
           </View>
           <Separator />
           <GeoMap />
@@ -42,7 +79,7 @@ export class EmergencyDetails extends React.Component {
         </ScrollView>
       );
     }
-  };
+  }; */
 
   const styles = StyleSheet.create({
     container: {
