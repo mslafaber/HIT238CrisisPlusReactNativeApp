@@ -6,18 +6,29 @@ import { GeoMap } from './geolocation_map';
 const Separator = () => (
   <View style={styles.separator} />
 );
-export default EmergencyDetailsScreen;
-function EmergencyDetailsScreen({route}) 
-{
-  console.warn(route)
+
+export default class EmergencyDetailsScreen extends React.Component {
+
+  /* constructor(props){
+    super(props)
+    this.state = {
+      emergsArray: this.props.navigation.state.params.emergsArray,
+    };
+  } */
+  render(){
     return (
       <ScrollView style={styles.container}>
         <Separator />
-        <View>
+          <View>
           <Text style={styles.individualtitlebar}>
-            Details Screen
+            Second screen title passed from home screen goes here - Under Development
+            {/* should display the second screen title{emergsArray.secondscreentitle} */}
           </Text>
-          { <TouchableOpacity
+          <Text style={styles.individualtitlebar}>
+            Call data passed from homescreen goes here(A button with a call icon, and correct emergency contact number) - Under Development
+            {/* should display the second screen title{emergsArray.secondscreentitle} */}
+          </Text>
+          {/* { <TouchableOpacity
             style={styles.callbuttonstyle}
             activeOpacity={0.4}
             onPress={()=> {
@@ -34,13 +45,14 @@ function EmergencyDetailsScreen({route})
           >
             <Text style={styles.buttonTextStyle}>{navigation.getParam('callTitle')}</Text>
             <Image source={require("../assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
-          </TouchableOpacity>}
+          </TouchableOpacity>} */}
         </View>
         <Separator />
         <GeoMap />
         <Separator />
       </ScrollView>
     );
+  }
 }/*  
 
 export class EmergencyDetails extends React.Component {

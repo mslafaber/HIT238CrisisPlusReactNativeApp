@@ -18,11 +18,17 @@ const emergsArray = [
 
 export default class HomeScreen extends React.Component {
  
-    construstor() {
-  
+    construstor(props) {
       this.state = {
-        data: [],
         value: '',
+        emergsArray: [
+          { title: 'Life Threatening Emergency Contact', id: '1', description: 'Contact when a person is seriously injured and need Police, Fire or Medical emergency service or when a property is threatened', image: require("../assets/triple-zero.jpg"), screendetailTitle: 'Police, Fire or Medical Life Threatening Emergency', callTitle: 'Call 000', androidnum: 'tel:131126', iOSnum: 'telprompt:${131126}' },
+          { title: 'Poison Emergency Contact', id: '2', description: 'Contact when a person has taken an overdose, made an error with medicine or been poisoned', screendetailTitle: 'Poisons Emergency', image: require("../assets/poison.png"), callTitle: 'Call 24/7 Poisons Contact', androidnum: 'tel:131126', iOSnum: 'telprompt:${131126}' },
+          { title: 'Unsure Medical Emergency or Medical Assistance Contact', id: '3', description: 'Contact to speak to a registered nurse about a medical concern but not an emergency for an ambulance', screendetailTitle: 'Medical assistance from a Registeres Nurse', image: require("../assets/health-direct.jpg"), callTitle: 'Call 24/7 Medical Assistance Contact', androidnum: 'tel:1800022222', iOSnum: 'telprompt:${1800022222}' },
+          { title: 'Natural Disaster Emergency Contact', id: '4', description: 'Contact when affected by a natural disaster (flodds, bushfire..) to get assistance', screendetailTitle: 'Natural Disaster Emergency Contact', image: require("../assets/floods.jpg"), callTitle: 'Call 24/7 Disaster Assistance Contact', androidnum: 'tel:1802266', iOSnum: 'telprompt:${1802266}' },
+          { title: 'Crime Reporting Emergency Contact', id: '5', description: 'Contact if you witness suspicious or criminal activity, recognised a person/vehicle of interest to the police or overheard suspicious conversation for criminal activities', screendetailTitle: 'Crime Reporting Emergency Contact', image: require("../assets/crime-report.png"), callTitle: 'Call Crime Stoppers', androidnum: 'tel:1800333000', iOSnum: 'telprompt:${1800333000}' },
+          { title: 'Go to Mental Health Emergency Contact', id: '6', description: 'Contact when feeling overwhelmed, having difficulty coping or staying safe or to prevent a suicidal situation', screendetailTitle: 'Mental Health Emergency Contact', image: require("../assets/mental-health.png"), callTitle: 'Call Mental Health Helpline', androidnum: 'tel:131114', iOSnum: 'telprompt:${131114}' },
+        ],
       };
     }
   
@@ -67,7 +73,7 @@ export default class HomeScreen extends React.Component {
     }; */
   
     render() {
-      const { navigation } = this.props;
+      const { navigate } = this.props.navigation
       return (
         <View style={styles.container}>
           <View style={styles.buttonsection}>
@@ -77,7 +83,7 @@ export default class HomeScreen extends React.Component {
               <TouchableOpacity 
               style={styles.buttonstyle}
               activeOpacity={0.4}
-              onPress={() => this.navigation.push('EmergencyDetails', emergsArray)}
+              onPress={() => this.props.navigation.navigate('EmergencyDetails')}
             >
               <Text style={styles.buttonTextStyle}>{item.title}</Text>
               <Text style={styles.buttonsubTextStyle}>{item.description}</Text>
