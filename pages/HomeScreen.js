@@ -198,20 +198,8 @@ export default class HomeScreen extends React.Component
       alignContent: 'center',
       marginHorizontal: 3,
     },
-    title: {
-      textAlign: 'center',
-      marginVertical: 8,
-    },
-    titlebar: {
-      fontSize: 18,
-      textAlign: "center",
-      padding: 22
-    },
-    individualtitlebar: {
-      fontSize: 18,
-      textAlign: "center",
-      padding: 22,
-      fontWeight: "bold",
+    buttonsection: {
+      marginTop: 1,
     },
     textinputstyle: {
       height: 60,
@@ -221,26 +209,6 @@ export default class HomeScreen extends React.Component
       padding: 5,
       paddingLeft: 20,
       fontSize: 20
-    },
-    ImageIconStyle: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      backgroundColor: '#F5FFFA',
-      shadowRadius: 10,
-      shadowOpacity: 0.4,
-      padding: 5,
-      height: 150,
-      width: 380,
-      marginBottom: 5,
-      resizeMode: 'stretch',
-    },
-    separator: {
-      marginVertical: 8,
-      borderBottomColor: '#737373',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-    },
-    buttonsection: {
-      marginTop: 1,
     },
     buttonstyle: {
       flexDirection: 'column',
@@ -253,38 +221,6 @@ export default class HomeScreen extends React.Component
       shadowOffset: { width: 0, height: 5 },
       shadowRadius: 10,
       shadowOpacity: 0.4,
-    },
-    callbuttonstyle: {
-      flexDirection: 'column',
-      alignItems: 'center',
-      backgroundColor: '#F5FFFA',
-      padding: 0,
-      marginBottom: 5,
-      shadowColor: '#303838',
-      shadowOffset: { width: 0, height: 2 },
-      shadowRadius: 3,
-      shadowOpacity: 0.4,
-      height: 150,
-    },
-    buttonImageIconStyle: {
-      padding: 5,
-      marginTop: 10,
-      marginLeft: 5,
-      marginRight: 5,
-      marginBottom: 20,
-      height: 150,
-      width: 350,
-      resizeMode: 'stretch',
-    },
-    callbuttonImageIconStyle: {
-      padding: 5,
-      marginTop: 1,
-      marginLeft: 5,
-      marginRight: 5,
-      marginBottom: 20,
-      height: 100,
-      width: 100,
-      resizeMode: 'stretch',
     },
     buttonTextStyle: {
       fontSize: 18,
@@ -300,6 +236,21 @@ export default class HomeScreen extends React.Component
       marginBottom: 4,
       marginLeft: 10,
       textAlign: "center"
-    }
+    },
+    buttonImageIconStyle: {
+      padding: 5,
+      marginTop: 10,
+      marginLeft: 5,
+      marginRight: 5,
+      marginBottom: 20,
+      height: 150,
+      width: 350,
+      resizeMode: 'stretch',
+    },
+    separator: {
+      marginVertical: 8,
+      borderBottomColor: '#737373',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+    },
   });
   
