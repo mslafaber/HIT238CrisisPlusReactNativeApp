@@ -1,12 +1,8 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { useState } from 'react';
-import { GeoMap } from './pages/geolocation_map';
-import { StyleSheet, Text, View, Button,SafeAreaView, TouchableOpacity, TextInput, Image, ScrollView, Linking, Platform, FlatList } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createAppContainer } from 'react-navigation';
-import { withNavigation } from 'react-navigation';
 import EmergencyDetailsScreen from './pages/EmergencyDetails';
 import HomeScreen from "./pages/HomeScreen";
 
@@ -38,7 +34,7 @@ const App = () => {
         <Stack.Screen
           name="EmergencyDetails"
           component={EmergencyDetailsScreen}
-          options={{ title: 'Contact' }}/>
+          options={{ title: 'Emergency' }}/>
         
         {/* <Stack.Screen name="Life Threatening Emergency" component={triplezeroScreen} options={{ title: 'CrisisPlus' }}/>
         <Stack.Screen name="Poison Emergency" component={poisonScreen} options={{ title: 'CrisisPlus' }}/>
@@ -479,7 +475,7 @@ const mentalhealthScreen = () => {
   );
 };*/
 
-const styles = StyleSheet.create({
+/* const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignContent: 'center',
@@ -580,3 +576,4 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+ */

@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Linking, Platform } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Linking, Platform } from 'react-native';
 import { GeoMap } from './geolocation_map';
 
 const Separator = () => (
