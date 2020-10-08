@@ -1,14 +1,8 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { useState } from 'react';
-import { StyleSheet, Text, View, Button,SafeAreaView, TouchableOpacity, Image, ScrollView, Linking, Platform, FlatList } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import MapView from 'react-native-maps';
-import * as Permissions from 'expo-permissions';
-import * as Location from 'expo-location';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Linking, Platform } from 'react-native';
 import { GeoMap } from './geolocation_map';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const Separator = () => (
   <View style={styles.separator} />
@@ -39,7 +33,7 @@ export class EmergencyDetails extends React.Component {
                 Linking.openURL(phoneNumber);}} 
             >
               <Text style={styles.buttonTextStyle}>{navigation.getParam('callTitle')}</Text>
-              <Image source={require("./assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
+              <Image source={require("../assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
             </TouchableOpacity>
           </View>
           <Separator />
