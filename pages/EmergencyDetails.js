@@ -14,7 +14,6 @@ export default class EmergencyDetailsScreen extends React.Component {
   }
   
   render(){
-    /* const { navigate } = this.props.navigation; */
     const item = this.props.route.params.item
     return (
       <ScrollView style={styles.container}>
@@ -112,45 +111,7 @@ export default class EmergencyDetailsScreen extends React.Component {
       </ScrollView>
     );
   }
-}/*  
-
-export class EmergencyDetails extends React.Component {
-    render() {
-      const { params } = this.props.navigation.state;
-      const { title } = params ? params: null;
-      return (
-        <ScrollView style={styles.container}>
-          <Separator />
-          <View>
-            <Text style={styles.individualtitlebar}>
-              {title}
-            </Text>
-            { <TouchableOpacity
-              style={styles.callbuttonstyle}
-              activeOpacity={0.4}
-              onPress={()=> {
-                let phoneNumber = '';
-      
-                if (Platform.OS === 'android') {
-                  phoneNumber = androidnum;
-                }
-                else {
-                  phoneNumber = iOSnum;
-                }
-            
-                Linking.openURL(phoneNumber);}} 
-            >
-              <Text style={styles.buttonTextStyle}>{navigation.getParam('callTitle')}</Text>
-              <Image source={require("../assets/call-icon.jpg")} style={styles.callbuttonImageIconStyle}/>
-            </TouchableOpacity> }
-          </View>
-          <Separator />
-          <GeoMap />
-          <Separator />
-        </ScrollView>
-      );
-    }
-  }; */
+}
 
   const styles = StyleSheet.create({
     container: {
