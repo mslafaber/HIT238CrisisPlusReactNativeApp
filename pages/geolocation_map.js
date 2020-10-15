@@ -1,11 +1,13 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import MapView from 'react-native-maps';
+/* import MapView, {Marker} from 'react-native-maps'; */
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
+import { MapView, Marker} from './lib_maps';
 
 export class GeoMap extends React.Component {
+  
     state = {
       mapRegion: { latitude: 37.78825, longitude: -122.4324, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
       hasLocationPermissions: false,
@@ -26,7 +28,6 @@ export class GeoMap extends React.Component {
     _getLocationAsync = async () => {
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
       if (status !== 'granted') {
-        let location = {coords: { latitude: 37.78825, longitude: -122.4324}};
         this.setState({ locationResult: 'Permission to access location was denied', location, text: 'Permission to access location was denied' });
       } else {
         this.setState({ hasLocationPermissions: true });
@@ -37,6 +38,7 @@ export class GeoMap extends React.Component {
             response.json()
           ).then((responseJson) => {
             this.setState({ address: responseJson.features[0].properties.display_name });
+            console.log(responseJson);
             });
       }
     }
@@ -49,13 +51,14 @@ export class GeoMap extends React.Component {
                 style={styles.mapview}
                 region={{ latitude: this.state.location.coords.latitude, longitude: this.state.location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
                 onRegionChange={this._handleMapRegionChange}
-                >
-                <MapView.Marker
+                > 
+                <Marker
                 style={styles.mapviewmarker}
                 coordinate={this.state.location.coords}
                 title="My Location"
                 description={this.state.address}
-                />
+                >
+                </Marker>
                 </MapView>
           </View>
       );

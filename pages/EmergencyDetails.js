@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, Linking, Platform, TouchableOpacity } from 'react-native';
-import { GeoMap } from './geolocation_map';
+import { GeoMap} from './geolocation_map';
 
 const Separator = () => (
   <View style={styles.separator} />
@@ -107,7 +107,6 @@ export default class EmergencyDetailsScreen extends React.Component {
         </View>
         <Separator />
         <GeoMap />
-        <Separator />
       </ScrollView>
     );
   }
