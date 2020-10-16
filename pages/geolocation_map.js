@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-/* import MapView, {Marker} from 'react-native-maps'; */
+import { StyleSheet, Text, View, Image } from 'react-native';
+import MapView, {Marker} from 'react-native-maps';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
-import { MapView, Marker} from './lib_maps';
+/* import { MapView, Marker} from './lib_maps'; */
 
 export class GeoMap extends React.Component {
   
@@ -51,7 +51,7 @@ export class GeoMap extends React.Component {
                 style={styles.mapview}
                 region={{ latitude: this.state.location.coords.latitude, longitude: this.state.location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
                 onRegionChange={this._handleMapRegionChange}
-                > 
+                >
                 <Marker
                 style={styles.mapviewmarker}
                 coordinate={this.state.location.coords}
@@ -91,3 +91,4 @@ export class GeoMap extends React.Component {
   });
   
   
+

@@ -27,11 +27,11 @@ export default class EmergencyDetailsScreen extends React.Component {
             activeOpacity={0.4}
             onPress={()=> {
 
-              if (this.props.route.params.index === 0) {
+              if (this.props.route.params.item.title === 'Life Threatening Emergency Contact') {
                 let phoneNumber = '';
     
                 if (Platform.OS === 'android') {
-                  phoneNumber = 'tel:{000}';
+                  phoneNumber = 'tel:000';
                 }
                 else {
                   phoneNumber = 'telprompt:${000}';
@@ -39,11 +39,11 @@ export default class EmergencyDetailsScreen extends React.Component {
           
                 Linking.openURL(phoneNumber);
               }
-              else if (this.props.route.params.index === 1) {
+              else if (this.props.route.params.item.title === 'Poison Emergency Contact') {
                 let phoneNumber = '';
     
                 if (Platform.OS === 'android') {
-                  phoneNumber = 'tel:{131126}';
+                  phoneNumber = 'tel:131126';
                 }
                 else {
                   phoneNumber = 'telprompt:${131126}';
@@ -51,11 +51,11 @@ export default class EmergencyDetailsScreen extends React.Component {
           
                 Linking.openURL(phoneNumber);
               }
-              else if (this.props.route.params.index === 2) {
+              else if (this.props.route.params.item.title === 'Unsure Medical Emergency or Medical Assistance Contact') {
                 let phoneNumber = '';
     
                 if (Platform.OS === 'android') {
-                  phoneNumber = 'tel:{1800022222}';
+                  phoneNumber = 'tel:1800022222';
                 }
                 else {
                   phoneNumber = 'telprompt:${1800022222}';
@@ -63,11 +63,11 @@ export default class EmergencyDetailsScreen extends React.Component {
           
                 Linking.openURL(phoneNumber);
               }
-              else if (this.props.route.params.index === 3) {
+              else if (this.props.route.params.item.title === 'Natural Disaster Emergency Contact') {
                 let phoneNumber = '';
     
                 if (Platform.OS === 'android') {
-                  phoneNumber = 'tel:{1802266}';
+                  phoneNumber = 'tel:1802266';
                 }
                 else {
                   phoneNumber = 'telprompt:${1802266}';
@@ -75,11 +75,11 @@ export default class EmergencyDetailsScreen extends React.Component {
           
                 Linking.openURL(phoneNumber);
               }
-              else if (this.props.route.params.index === 4) {
+              else if (this.props.route.params.item.title === 'Crime Reporting Emergency Contact') {
                 let phoneNumber = '';
     
                 if (Platform.OS === 'android') {
-                  phoneNumber = 'tel:{1800333000}';
+                  phoneNumber = 'tel:1800333000';
                 }
                 else {
                   phoneNumber = 'telprompt:${1800333000}';
@@ -87,11 +87,11 @@ export default class EmergencyDetailsScreen extends React.Component {
           
                 Linking.openURL(phoneNumber);
               }
-              else if (this.props.route.params.index === 5) {
+              else if (this.props.route.params.item.title === 'Go to Mental Health Emergency Contact') {
                 let phoneNumber = '';
     
                 if (Platform.OS === 'android') {
-                  phoneNumber = 'tel:{131114}';
+                  phoneNumber = 'tel:131114';
                 }
                 else {
                   phoneNumber = 'telprompt:${131114}';
